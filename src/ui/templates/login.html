@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="color:red">{{ error }}</div>
+
+<h1 class="cover-heading">Login</h1>
+
+<br><br>
+
+<p>{{ form.fieldname.errors.as_text }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <div class="body bg-gray">
+        <div class="form-group">
+            <input type="text" name="username" id="id_username" class="form-control" placeholder="Usuario"/>
+        </div>
+        <div class="form-group">
+            <input type="password" name="password" id="id_password" class="form-control" placeholder="Contraseña"/>
+        </div>
+    </div>
+    <div class="footer">
+        <button type="submit" class="btn btn-lg btn-default">Iniciar sesión</button>
+    </div>
+</form>
+<br>
+<a href="/registro" class="text-center">Registrarse como nuevo usuario</a>
+
+{% endblock %}
