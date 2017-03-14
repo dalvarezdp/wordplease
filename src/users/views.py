@@ -37,7 +37,7 @@ class LoginView(View):
                 # Usuario autenticado
                 request.session["default-language"] = "es"
                 django_login(request, user)
-                url = request.GET.get('next', 'tasks_list') #Permite redirigir a la url desde donde venga el usuario al hacer login
+                url = request.GET.get('next', 'posts_list') #Permite redirigir a la url desde donde venga el usuario al hacer login
                 return redirect(url)
             else:
                 # Usuario no autenticadopero

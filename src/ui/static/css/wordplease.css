@@ -20,6 +20,16 @@ a:hover {
 }
 
 
+.list-group-item {
+  color:black;
+  text-shadow: none;
+}
+
+.media-object{
+ width: 120px;
+ height: 80px;
+}
+
 /*
  * Base structure
  */

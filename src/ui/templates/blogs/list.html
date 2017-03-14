@@ -1,4 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<h1 class="cover-heading">List</h1>
+
+<br><br>
+
+
+
+<ul class="list-group">
+  {% for post in post_objects %}
+        <li class="list-group-item">
+              <div class="media">
+                  <div class="media-left">
+                    <a href="#">
+                      <img class="media-object" src="{{post.image.url}}" alt="...">
+                    </a>
+                  </div>
+                  <div class="media-body">
+                    <h4 class="list-group-item-heading">{{ post.title }}</h4>
+                    <p class="list-group-item-text">{{ post.owner.first_name }} {{ post.owner.last_name }}</p>
+                    <p class="list-group-item-text">{{ post.description }}</p>
+                  </div>
+              </div>
+          </li>
+  {% endfor %}
+</ul>
+
+
 {% endblock %}

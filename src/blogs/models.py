@@ -28,5 +28,5 @@ class Post(models.Model):
     owner = models.ForeignKey(User, related_name="owned_posts")
 
     def __str__(self):
-        return self.name
+        return self.title
 
