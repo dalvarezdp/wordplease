@@ -8,7 +8,7 @@ from blogs.models import Post
 
 def posts_list(request):
     """
-    Recupera todas las tareas de la base de datos y las pinta
+    Recupera todos los post de la base de datos y las pinta
     :param request: HttpRequest
     :return: HttpResponse
     """
@@ -22,3 +22,4 @@ def posts_list(request):
         'post_objects': posts
     }
     return render(request, 'blogs/list.html', context)
+

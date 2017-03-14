@@ -17,7 +17,7 @@
 
           <div class="masthead clearfix">
             <div class="inner">
-              <h3 class="masthead-brand">Wordplease</h3>
+              <h3 class="masthead-brand"><a href="{% url 'posts_list' %}">Wordplease</a></h3>
               <nav>
                 <ul class="nav masthead-nav">
                   {% if user.is_authenticated %}
@@ -26,7 +26,7 @@
                       <li><a href="{% url 'logout' %}">Logout</a></li>
                   {% else %}
                       <li><a href="{% url 'login' %}" title="Login">Login</a></li>
-                      <li><a href="" title="Signup">Signup</a></li>
+                      <li><a href="{% url 'signup' %}" title="Signup">Signup</a></li>
                   {% endif %}
                 </ul>
               </nav>

@@ -18,12 +18,13 @@ from django.contrib import admin
 from django.conf.urls.static import static
 
 from blogs.views import posts_list
-from users.views import LoginView, logout
+from users.views import LoginView, logout, SignupView
 from wordplease import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', posts_list, name="posts_list"), # si la URL es / , ejecutar función posts_list
     url(r'^login', LoginView.as_view(), name="login"),
+    url(r'^signup', SignupView.as_view(), name="signup"),
     url(r'^logout$', logout, name="logout")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

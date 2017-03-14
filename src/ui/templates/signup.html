@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="color:red">{{ error }}</div>
+
+<h1 class="cover-heading">Signup</h1>
+
+<br><br>
+
+<form method="post" novalidate>
+    {% csrf_token %}
+    <div class="body bg-gray">
+        <div class="form-group">
+            <input type="text" name="username" id="id_username" class="form-control" placeholder="Usuario"/>
+        </div>
+        <div class="form-group">
+            <input type="password" name="password1" id="password1" class="form-control" placeholder="Contraseña"/>
+        </div>
+        <div class="form-group">
+            <input type="password" name="password2" id="password2" class="form-control" placeholder="Repite contraseña"/>
+        </div>
+        <div class="form-group">
+            <input type="text" name="first_name" id="first_name" class="form-control" placeholder="First name"/>
+        </div>
+        <div class="form-group">
+            <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Last name"/>
+        </div>
+        <div class="form-group">
+            <input type="email" name="email" id="email" class="form-control" placeholder="Email"/>
+        </div>
+    </div>
+    <div class="footer">
+        <button type="submit" class="btn btn-lg btn-default">Registrarse</button>
+    </div>
+</form>
+<br>
+<a href="/registro" class="text-center">Ya tengo usuario</a>
+
+{% endblock %}
+
