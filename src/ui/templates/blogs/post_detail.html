@@ -13,8 +13,24 @@
                       <div class="media-body">
                         <img class="img-responsive" src="{{post.image.url}}" alt="...">
                           <br>
-                        <h4 class="list-group-item-heading">{{ post.title }}</h4>
-                        <p class="list-group-item-text">{{ post.owner.first_name }} {{ post.owner.last_name }}</p>
+                        <h3 class="list-group-item-heading">{{ post.title }}</h3>
+                        <h4 class="list-group-item-heading">{{ post.subtitle }}</h4>
+                          <br>
+                        <div class="media-left">
+                            <p class="list-group-item-text">{{ post.owner.first_name }} {{ post.owner.last_name }}</p>
+                            <p class="list-group-item-text">{{ post.date_public }}</p>
+                        </div>
+                        <div class="media-right">
+                            <p class="list-group-item-text">
+                                Categories:
+                                {% for category in post.categories.all %}
+                                     {{ category.name }}
+                                {% endfor %}
+
+                            </p>
+                        </div>
+
+                          <br>
                         <p class="list-group-item-text">{{ post.description }}</p>
                       </div>
               </div>
