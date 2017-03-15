@@ -19,6 +19,11 @@ a:hover {
   border: 1px solid #fff;
 }
 
+a.link-blog,
+a.link-blog:hover {
+  color:black;
+  text-shadow: none;
+}
 
 .list-group-item {
   color:black;

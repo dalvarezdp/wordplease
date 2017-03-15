@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 class="cover-heading">Blogs</h1>
+
+<br><br>
+
+
+<ul class="list-group">
+  {% for blog in blog_objects %}
+        <li class="list-group-item">
+              <div class="media">
+                  <div class="media-body">
+                    <a href="{% url 'blog_detail' blog.username %}" class="link-blog"><h4 class="list-group-item-heading"> {{ blog.username }} </h4></a>
+                    <p class="list-group-item-text">{{ blog.first_name }} {{ blog.last_name }}</p>
+                    <p class="list-group-item-text">{{ blog.email }}</p>
+                  </div>
+              </div>
+          </li>
+  {% endfor %}
+</ul>
+
+
+{% endblock %}
