@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 class="cover-heading">Descripcion del post detallada </h1>
+
+<br><br>
+
+
+
+<ul class="list-group">
+        <li class="list-group-item">
+              <div class="media">
+                      <div class="media-body">
+                        <img class="img-responsive" src="{{post.image.url}}" alt="...">
+                          <br>
+                        <h4 class="list-group-item-heading">{{ post.title }}</h4>
+                        <p class="list-group-item-text">{{ post.owner.first_name }} {{ post.owner.last_name }}</p>
+                        <p class="list-group-item-text">{{ post.description }}</p>
+                      </div>
+              </div>
+          </li>
+</ul>
+
+
+{% endblock %}

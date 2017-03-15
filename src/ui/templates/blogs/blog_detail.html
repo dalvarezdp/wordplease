@@ -17,7 +17,9 @@
                     </a>
                   </div>
                   <div class="media-body">
-                    <h4 class="list-group-item-heading">{{ post.title }}</h4>
+                    <a href="{% url 'post_detail' post.owner.username post.id %}" class="link-blog">
+                        <h4 class="list-group-item-heading">{{ post.title }}</h4>
+                    </a>
                     <p class="list-group-item-text">{{ post.owner.first_name }} {{ post.owner.last_name }}</p>
                     <p class="list-group-item-text">{{ post.description }}</p>
                   </div>
