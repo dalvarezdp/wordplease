@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %} Wordplease {% endblock %}</title>
+    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/wordplease.css' %}">
 </head>
@@ -23,7 +24,7 @@
                   {% if user.is_authenticated %}
                       <li class="active"><a href="{% url 'posts_list' %}">Home</a></li>
                       <li><a href="{% url 'blogs_list' %}">Blogs</a></li>
-                      <li><a href="" title="Create new post">New post</a></li>
+                      <li><a href="{% url 'new_post' %}" title="Create new post">New post</a></li>
                       <li><a href="{% url 'logout' %}">Logout</a></li>
                   {% else %}
                       <li><a href="{% url 'blogs_list' %}">Blogs</a></li>
@@ -52,7 +53,6 @@
 
     </div>
 
-    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
 </body>
 </html>

@@ -1,9 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.db.models.functions import Coalesce
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.utils.decorators import method_decorator
+from django.views import View
 
+from blogs.forms import PostForm
 from blogs.models import Post
 # Create your views here.
 
@@ -73,14 +77,13 @@ def post_detail(request, username, post_id):
     :param task_pk: Primary key de la tarea a recuperar
     :return: HttpResponse
     """
-    # recuperar la tarea de la base de datos
+    # recuperar el post de la base de datos
     try:
         post = Post.objects.select_related().get(pk=post_id)
     except Post.DoesNotExist:
-        #return HttpResponseNotFound("La tarea que buscas no existe.")
-        return render(request, 'tasks/404.html', {}, status=404)
+        return render(request, 'blogs/404.html', {}, status=404)
     except Post.MultipleObjectsReturned:
-        return HttpResponse("Existen varias tareas con ese identificador", status=300)
+        return HttpResponse("Existen varios post con ese identificador", status=300)
 
     # preparar el contexto
     context = {
@@ -89,3 +92,40 @@ def post_detail(request, username, post_id):
 
     # renderizar el contexto
     return render(request, 'blogs/post_detail.html', context)
+
+
+class NewPostView(View):
+
+    @method_decorator(login_required)
+    def get(self, request):
+        # crear el formulario
+        form = PostForm()
+
+        # renderiza la plantilla con el formulario
+        context = {
+            "form": form
+        }
+        return render(request, 'blogs/new_post.html', context)
+
+    @method_decorator(login_required)
+    def post(self, request):
+        # crear el formulario con los datos del POST
+        task_with_user = Post(owner=request.user)
+        form = PostForm(request.POST, request.FILES, instance=task_with_user)
+
+        # validar el formulario
+        if form.is_valid():
+            # crear el post
+            post = form.save()
+
+            return HttpResponseRedirect(reverse('blog_detail', args=[task_with_user.owner.username]))
+        else:
+            # mostrar mensaje de error
+            message = "Se ha producido un error"
+
+        # renderizar la plantilla
+        context = {
+            "form": form,
+            "message": message
+        }
+        return render(request, 'blogs/new_post.html', context)

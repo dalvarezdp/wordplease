@@ -17,7 +17,7 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.conf.urls.static import static
 
-from blogs.views import posts_list, blogs_list, blog_detail, post_detail
+from blogs.views import posts_list, blogs_list, blog_detail, post_detail, NewPostView
 from users.views import LoginView, logout, SignupView
 from wordplease import settings
 
@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^blogs$', blogs_list, name="blogs_list"),
     url(r'^blog/(?P<username>\w+)$', blog_detail, name="blog_detail"),
     url(r'^blog/(?P<username>\w+)/(?P<post_id>\w+)', post_detail, name="post_detail"),
+    url(r'^new-post$', NewPostView.as_view(), name="new_post"),
     url(r'^login', LoginView.as_view(), name="login"),
     url(r'^signup', SignupView.as_view(), name="signup"),
     url(r'^logout$', logout, name="logout")
