@@ -37,9 +37,9 @@ def blogs_list(request):
     """
 
     # recuperar todos los post de la base de datos
-    userBlogs = Post.objects.values_list('owner').distinct()
-
-    blogs = User.objects.filter(pk=userBlogs)
+    userBlogs = Post.objects.values('owner').distinct()
+    print(userBlogs)
+    blogs = User.objects.filter(pk__in=userBlogs)
 
     print(blogs)
     # devolver la respuesta
