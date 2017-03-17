@@ -26,7 +26,8 @@ from wordplease import settings
 
 router = DefaultRouter()
 router.register("users", UserViewSet, base_name="users_api")
-router.register("posts", PostViewSet)
+router.register("blogs/(?P<username>\w+)", PostViewSet, base_name="blogs_api")
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
