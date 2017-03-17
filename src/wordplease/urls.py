@@ -13,13 +13,18 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf.urls.static import static
+from rest_framework.routers import DefaultRouter
 
 from blogs.views import posts_list, blogs_list, blog_detail, post_detail, NewPostView
+from users.api import UserViewSet
 from users.views import LoginView, logout, SignupView
 from wordplease import settings
+
+router = DefaultRouter()
+router.register("users", UserViewSet, base_name="users_api")
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -30,5 +35,8 @@ urlpatterns = [
     url(r'^new-post$', NewPostView.as_view(), name="new_post"),
     url(r'^login', LoginView.as_view(), name="login"),
     url(r'^signup', SignupView.as_view(), name="signup"),
-    url(r'^logout$', logout, name="logout")
+    url(r'^logout$', logout, name="logout"),
+
+    # API Users & Posts
+    url(r'^api/1.0/', include(router.urls))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
