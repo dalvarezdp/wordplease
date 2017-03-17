@@ -1,14 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1 class="cover-heading">Post of {{ user.username }} </h1>
+<h1 class="cover-heading">Post of {{ userBlog.username }} </h1>
 
 <br><br>
 
-
-
 <ul class="list-group">
   {% for post in post_objects %}
+     {% if user.is_superuser or post.owner.id == user.id %}
         <li class="list-group-item">
               <div class="media">
                   <div class="media-left">
@@ -25,6 +24,24 @@
                   </div>
               </div>
           </li>
+      {% elif post.IsPublished %}
+          <li class="list-group-item">
+              <div class="media">
+                  <div class="media-left">
+                    <a href="#">
+                      <img class="media-object" src="{{post.image.url}}" alt="...">
+                    </a>
+                  </div>
+                  <div class="media-body">
+                    <a href="{% url 'post_detail' post.owner.username post.id %}" class="link-blog">
+                        <h4 class="list-group-item-heading">{{ post.title }}</h4>
+                    </a>
+                    <p class="list-group-item-text">{{ post.owner.first_name }} {{ post.owner.last_name }}</p>
+                    <p class="list-group-item-text">{{ post.description }}</p>
+                  </div>
+              </div>
+          </li>
+      {% endif %}
   {% endfor %}
 </ul>
 

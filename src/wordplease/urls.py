@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 
+from blogs.api import PostViewSet
 from blogs.views import posts_list, blogs_list, blog_detail, post_detail, NewPostView
 from users.api import UserViewSet
 from users.views import LoginView, logout, SignupView
@@ -25,6 +26,7 @@ from wordplease import settings
 
 router = DefaultRouter()
 router.register("users", UserViewSet, base_name="users_api")
+router.register("posts", PostViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),

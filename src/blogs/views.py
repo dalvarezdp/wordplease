@@ -19,12 +19,15 @@ def posts_list(request):
     :return: HttpResponse
     """
 
+    user = request.user
+
     # recuperar todos los post de la base de datos
     posts = Post.objects.select_related("owner").all().order_by('-date_public')
 
     # devolver la respuesta
     context = {
-        'post_objects': posts
+        'post_objects': posts,
+        'user': user
     }
     return render(request, 'blogs/list.html', context)
 
@@ -55,15 +58,18 @@ def blog_detail(request, username):
     :return: HttpResponse
     """
 
-    user = User.objects.get(username=username)
+    user = request.user
+
+    userBlog = User.objects.get(username=username)
 
     # recuperar todos los post de la base de datos
     posts = Post.objects.select_related("owner").filter(owner__username=username).order_by('-date_public')
 
     # devolver la respuesta
     context = {
-        'user': user,
-        'post_objects': posts
+        'userBlog': userBlog,
+        'post_objects': posts,
+        'user': user
     }
     return render(request, 'blogs/blog_detail.html', context)
 

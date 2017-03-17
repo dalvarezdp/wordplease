@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -26,6 +28,9 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)  # Añade automáticamente la fecha de creación
     modified_at = models.DateTimeField(auto_now=True)  # Actualiza la fecha al guardar automáticamente
     owner = models.ForeignKey(User, related_name="owned_posts")
+
+    def IsPublished(self):
+        return datetime.today().strftime("%d-%m-%y %H:%M:%S") >= self.date_public.strftime("%d-%m-%y %H:%M:%S")
 
     def __str__(self):
         return self.title
