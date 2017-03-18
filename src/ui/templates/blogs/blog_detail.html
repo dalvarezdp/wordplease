@@ -10,11 +10,13 @@
      {% if user.is_superuser or post.owner.id == user.id %}
         <li class="list-group-item">
               <div class="media">
-                  <div class="media-left">
-                    <a href="#">
-                      <img class="media-object" src="{{post.image.url}}" alt="...">
-                    </a>
-                  </div>
+                  {% if post.image %}
+                      <div class="media-left">
+                        <a href="#">
+                          <img class="media-object" src="{{post.image.url}}" alt="...">
+                        </a>
+                      </div>
+                  {% endif %}
                   <div class="media-body">
                     <a href="{% url 'post_detail' post.owner.username post.id %}" class="link-blog">
                         <h4 class="list-group-item-heading">{{ post.title }}</h4>
@@ -27,11 +29,13 @@
       {% elif post.IsPublished %}
           <li class="list-group-item">
               <div class="media">
-                  <div class="media-left">
-                    <a href="#">
-                      <img class="media-object" src="{{post.image.url}}" alt="...">
-                    </a>
-                  </div>
+                  {% if post.image %}
+                      <div class="media-left">
+                        <a href="#">
+                          <img class="media-object" src="{{post.image.url}}" alt="...">
+                        </a>
+                      </div>
+                  {% endif %}
                   <div class="media-body">
                     <a href="{% url 'post_detail' post.owner.username post.id %}" class="link-blog">
                         <h4 class="list-group-item-heading">{{ post.title }}</h4>
