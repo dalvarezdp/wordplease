@@ -72,3 +72,32 @@ class PostPermission(BasePermission):
             return True
 
         return False
+
+
+class BlogUserPermission(BasePermission):
+
+    def has_permission(self, request, view):
+        """
+        Define si un usuario puede usar o no el endpoint que quiere utilizar
+        :param request: HttpRequest
+        :param view: UsersAPI/UserDetailAPI
+        :return: True si puede, False si no puede
+        """
+
+        # si es superusuario y quiere acceder al listado
+        if view.action == "list":
+            return True
+
+
+        return False
+
+    def has_object_permission(self, request, view, obj):
+        """
+        Define si el usuario puede realizar la acción sobre el objeto que quiere realizarla
+        :param request: HttpRequest
+        :param view: UsersAPI/UserDetailAPI
+        :param obj: User
+        :return: True si puede, False si no puede
+        """
+        # si es admin o si es él mismo, le dejamos
+        return True

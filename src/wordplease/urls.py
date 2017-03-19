@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 
-from blogs.api import BlogViewSet, PostViewSet
+from blogs.api import BlogViewSet, PostViewSet, BlogUserViewSet
 from blogs.views import posts_list, blogs_list, blog_detail, post_detail, NewPostView
 from users.api import UserViewSet
 from users.views import LoginView, logout, SignupView
@@ -26,8 +26,9 @@ from wordplease import settings
 
 router = DefaultRouter()
 router.register("users", UserViewSet, base_name="users_api")
-router.register("blogs/(?P<username>\w+)", BlogViewSet, base_name="blogs_api")
+router.register("blog/(?P<username>\w+)", BlogViewSet)
 router.register("posts", PostViewSet, base_name="posts_api")
+router.register("blogs", BlogUserViewSet, base_name="blogs_api")
 
 
 urlpatterns = [

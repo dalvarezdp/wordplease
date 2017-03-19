@@ -2,14 +2,15 @@ from datetime import datetime
 
 from django.contrib.auth.models import User
 from django.shortcuts import get_list_or_404, get_object_or_404
+from django.urls import resolve
 from rest_framework import status
 from rest_framework.filters import SearchFilter, OrderingFilter, DjangoFilterBackend
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from blogs.models import Post
-from blogs.permissions import BlogPermission, PostPermission
-from blogs.serializers import BlogListSerializer, PostSerializer
+from blogs.permissions import BlogPermission, PostPermission, BlogUserPermission
+from blogs.serializers import BlogListSerializer, PostSerializer, BlogUserSerializer
 
 
 class BlogViewSet(ModelViewSet):
@@ -114,3 +115,17 @@ class PostViewSet(ModelViewSet):
         self.check_object_permissions(request, post)
         post.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class BlogUserViewSet(ModelViewSet):
+
+    userBlogs = Post.objects.values('owner').distinct()
+
+    queryset = User.objects.filter(pk__in=userBlogs)
+    serializer_class = BlogUserSerializer
+    permission_classes = (BlogUserPermission,)
+    filter_backends = (SearchFilter, OrderingFilter, DjangoFilterBackend)
+    search_fields = ("username",)
+    ordering_fields = ("first_name",)
+    filter_fields = ("username",)
+
