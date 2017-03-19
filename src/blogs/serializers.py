@@ -29,4 +29,4 @@ class BlogUserSerializer(serializers.ModelSerializer):
         fields = ("username", "first_name", "last_name", "email", "URL")
 
     def get_URL(self, obj):
-        return reverse('blog_detail', args=[obj.username])
+        return self.context.get('request').build_absolute_uri(reverse('blog_detail', args=[obj.username]))
