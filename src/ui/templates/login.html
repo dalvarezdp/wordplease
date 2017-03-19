@@ -11,18 +11,19 @@
 <form method="post" novalidate>
     {% csrf_token %}
     <div class="body bg-gray">
-        <div class="form-group">
-            <input type="text" name="username" id="id_username" class="form-control" placeholder="Usuario"/>
-        </div>
-        <div class="form-group">
-            <input type="password" name="password" id="id_password" class="form-control" placeholder="Contraseña"/>
-        </div>
+        {% for field in form %}
+                <div class="form-group">
+                    <div class="fieldWrapper">
+                        {{ field.errors }}
+                        {{ field }}
+                    </div>
+                </div>
+            {% endfor %}
     </div>
     <div class="footer">
         <button type="submit" class="btn btn-lg btn-default">Iniciar sesión</button>
     </div>
 </form>
 <br>
-<a href="/registro" class="text-center">Registrarse como nuevo usuario</a>
 
 {% endblock %}

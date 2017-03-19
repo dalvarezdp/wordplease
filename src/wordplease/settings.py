@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'ui',
     'blogs',
     'users',
-    'rest_framework'
+    'rest_framework',
+    'files'
 ]
 
 MIDDLEWARE = [

@@ -71,7 +71,6 @@ class SignupView(View):
         """
 
         form = UserCreationForm(request.POST)
-        print(form.errors)
         context = dict()
         if form.is_valid():
             username = form.cleaned_data.get("username")
@@ -89,7 +88,9 @@ class SignupView(View):
                 # Usuario autenticado
                 request.session["default-language"] = "es"
                 django_login(request, user)
-                return HttpResponseRedirect('/')
+                url = request.GET.get('next', 'posts_list')  # Permite redirigir a la url desde donde venga el usuario al hacer login
+                return redirect(url)
+                #return HttpResponseRedirect('/')
         else:
             # Usuario no autenticadopero
             context["error"] = "El formulario no es válido"

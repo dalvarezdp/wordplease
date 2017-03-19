@@ -1,10 +1,12 @@
 from datetime import datetime
 
 from django.contrib.auth.models import User
+from django.core.files.storage import FileSystemStorage
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.urls import resolve
 from rest_framework import status
 from rest_framework.filters import SearchFilter, OrderingFilter, DjangoFilterBackend
+from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
@@ -55,6 +57,7 @@ class PostViewSet(ModelViewSet):
 
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    #parser_classes = (MultiPartParser,)
     permission_classes = (PostPermission,)
     filter_backends = (SearchFilter, OrderingFilter, DjangoFilterBackend)
     search_fields = ("title", "description")
@@ -67,6 +70,8 @@ class PostViewSet(ModelViewSet):
         :param request: HttpRequest
         :return: Response
         """
+
+        # image=self.request.data.get('image')
 
         serializer = PostSerializer(data=request.data)
         if serializer.is_valid():
@@ -100,7 +105,7 @@ class PostViewSet(ModelViewSet):
         serializer = PostSerializer(post, data=request.data)
         if serializer.is_valid():
             post = serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_ACCEPTED)
+            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

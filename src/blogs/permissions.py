@@ -17,7 +17,6 @@ class BlogPermission(BasePermission):
         if view.action == "list":
             return True
 
-
         return False
 
     def has_object_permission(self, request, view, obj):
